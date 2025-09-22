@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub Auto Repo</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<div class="container">
+  <div class="logo-row">
+    <img id="logo" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flogos-world.net%2Fwp-content%2Fuploads%2F2020%2F11%2FGitHub-Symbol.png&f=1&nofb=1&ipt=76c52d3af6cae7ed5214e9c4682391f3d18a51c6a2348d92b99d5b3da19f6fd1" alt="Logo">
+    <h2>GitHub Repo Auto-Filler</h2>
+  </div>
+  <div class="ai-keys">
+    <label>OpenAI API Key</label>
+    <input type="password" id="openai-key" placeholder="sk-...">
+    <button id="save-openai-key">Save Key</button>
+    <label><input type="checkbox" id="use-openai"> Use OpenAI for generation</label>
+  </div>
+  
+  <label>Repository Name</label>
+  <div class="row">
+    <input type="text" id="repo-name" placeholder="Enter repo name">
+    <label><input type="checkbox" id="keep-name" checked> Keep</label>
+    <label><input type="checkbox" id="autogen-name"> Auto-generate</label>
+  </div>
+  
+  <label>Description</label>
+  <div class="row">
+    <input type="text" id="repo-desc" placeholder="Enter description">
+    <label><input type="checkbox" id="keep-desc" checked> Keep</label>
+    <label><input type="checkbox" id="autogen-desc"> Auto-generate</label>
+  </div>
+  
+  <label>Visibility</label>
+  <select id="repo-visibility">
+    <option value="public">Public</option>
+    <option value="private">Private</option>
+  </select>
+  
+  <div class="buttons">
+    <button id="auto-generate">Auto-generate</button>
+    <button id="start-loop">Start Loop</button>
+    <button id="stop-loop">Stop Loop</button>
+    <button id="open-fill">Open & Fill</button>
+  </div>
+
+  <div class="controls">
+    <label>Loops: <span id="loops-count">1</span></label>
+    <input type="range" id="loops-slider" min="1" max="999" value="1">
+
+    <label><input type="checkbox" id="auto-publish"> Auto-publish (click Create)</label>
+    <label><input type="checkbox" id="confirm-before-publish" checked> Confirm before publish</label>
+
+    <label>Load timeout (s)</label>
+    <input type="number" id="load-timeout" value="10" min="1" max="60">
+
+    <label>Retries</label>
+    <input type="number" id="retries" value="1" min="0" max="10">
+
+    <label><input type="checkbox" id="close-tab"> Close tab after fill</label>
+  </div>
+
+  <div class="repo-options">
+    <label><input type="checkbox" id="add-readme"> Initialize with README</label>
+    <label><input type="checkbox" id="add-gitignore"> Add .gitignore</label>
+    <input type="text" id="gitignore-template" placeholder="gitignore template (e.g., Node)">
+    <label><input type="checkbox" id="add-license"> Add license</label>
+    <input type="text" id="license-template" placeholder="license (e.g., mit)">
+  </div>
+
+  <div class="copilot">
+    <label>Co-pilot prompt (optional)</label>
+    <textarea id="copilot-text" placeholder="Enter text to be inserted into README or description"></textarea>
+    <label><input type="checkbox" id="copilot-loop"> Use prompt for each loop</label>
+  </div>
+
+  <div class="save-options">
+    <label>Save generated metadata:</label>
+    <label><input type="radio" name="save-loc" value="downloads" checked> Downloads</label>
+    <label><input type="radio" name="save-loc" value="storage"> Local Storage</label>
+    <button id="export-metadata">Export Metadata Now</button>
+  </div>
+
+  <div id="status" class="status">Status: idle</div>
+  
+  <div class="timer">
+    <span id="pacman-timer">⏱️ 0.00s</span>
+    <span id="run-count">Runs: 0</span>
+  </div>
+</div>
+<script type="module" src="popup.js"></script>
+</body>
+</html>

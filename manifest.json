@@ -1,0 +1,30 @@
+{
+  "manifest_version": 2,
+  "name": "GitHub Auto Repo Creator",
+  "version": "1.0",
+  "description": "Automatically fills GitHub repository fields with stylish UI and looping capabilities.",
+  "permissions": ["activeTab", "tabs", "storage", "downloads", "https://github.com/*"],
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/new"],
+      "js": ["content.js"]
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
